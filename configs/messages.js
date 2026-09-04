@@ -5,5 +5,8 @@ module.exports = {
     SIGNUP_SUCCESSFULLY: 'sign up successfully',
     PAGE_NOT_FOUND: 'Page not found',
     VIDEO_UPLOADED_SUCCESSFULLY: 'Video uploaded to Bunny successfully!',
-    FAILED_TO_UPLOAD_VIDEO: 'Failed to upload video'
+    FAILED_TO_UPLOAD_VIDEO: 'Failed to upload video', 
+    INVALID_CONTENT_TYPE: 'Invalid Content-Type',
+    MALEFORMED_HEADERS: 'Malformed headers',
+    ERROR_WRITING_FILE:'Error writing file'
 }
