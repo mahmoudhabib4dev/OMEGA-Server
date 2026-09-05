@@ -49,19 +49,19 @@ const uploadVideo = async (req, res) => {
 
     if (req.method === 'POST') {
         if (!req.headers['content-type'].includes('multipart/form-data')) {
-            errorHandler(res, 400, INVALID_CONTENT_TYPE, { success: false, message: INVALID_CONTENT_TYPE });
+            return errorHandler(res, 400, INVALID_CONTENT_TYPE, { success: false, message: INVALID_CONTENT_TYPE });
         }
         try {
             busboy = Busboy({ headers: req.headers });
         } catch (error) {
-            errorHandler(res, 400, MALEFORMED_HEADERS, { success: false, message: MALEFORMED_HEADERS });
+            return errorHandler(res, 400, MALEFORMED_HEADERS, { success: false, message: MALEFORMED_HEADERS });
         }
         busboy.on('file', async (fieldName, fileStream, info) => {
             if (info) {
                 const { filename, mimeType } = info;
                 if (!mimeType.startsWith('video/')) {
                     fileStream.resume();
-                    errorHandler(res, 500, ERROR_WRITING_FILE, { success: false, message: ERROR_WRITING_FILE });
+                    return errorHandler(res, 500, ERROR_WRITING_FILE, { success: false, message: ERROR_WRITING_FILE });
                 }
 
                 const guid = await createrBunnyVideoRecord(req, res, filename, fileStream);
@@ -74,14 +74,14 @@ const uploadVideo = async (req, res) => {
                     });
 
                 } catch (error) {
-                    errorHandler(res, error.statusCode, FAILED_TO_UPLOAD_VIDEO, error);
+                    return errorHandler(res, error.statusCode, FAILED_TO_UPLOAD_VIDEO, error);
                 }
             }
         });
         req.pipe(busboy);
 
     } else {
-        errorHandler(res, 405, METHOD_NOT_ALLOWED, { success: false, message: METHOD_NOT_ALLOWED });
+        return errorHandler(res, 405, METHOD_NOT_ALLOWED, { success: false, message: METHOD_NOT_ALLOWED });
 
     }
 };

@@ -21,8 +21,10 @@
   },
   "homepage": "https://github.com/mahmoudhabib4dev/OMEGA-Server-#readme",
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "busboy": "^1.6.0",
     "dotenv": "^17.4.2",
+    "jsonwebtoken": "^9.0.3",
     "multer": "^2.3.0",
     "nodemon": "^3.1.14",
     "pg": "^8.23.0"
