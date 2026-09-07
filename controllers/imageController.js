@@ -14,8 +14,9 @@ const {
 const uploadImageToBunnyCDN = async (fileName, fileStream) => {
     const storageName = process.env.BUNNY_STORAGE_NAME;
     const apiKey = process.env.BUNNY_STORAGE_KEY;
-    const url = `${process.env.BUNNY_IMAGE_STORAGE_LIBRARY}${storageName}/images/${Date.now()}_${fileName}`;
-    const response = await fetch(url, {
+    const filePath = `images/${Date.now()}_${fileName}`;
+    const uploadUrl = `${process.env.BUNNY_IMAGE_STORAGE_LIBRARY}${storageName}/${filePath}`;
+    const response = await fetch(uploadUrl, {
         method: 'PUT',
         headers: {
             'AccessKey': apiKey,
@@ -30,7 +31,13 @@ const uploadImageToBunnyCDN = async (fileName, fileStream) => {
         return errorHandler(res, 400, FAILED_TO_UPLOAD_IMAGE, { success: false, message: FAILED_TO_UPLOAD_IMAGE });
     }
 
-    return await response.json();
+    const result = await response.json();
+    const publicBaseUrl = process.env.BUNNY_IMAGE_CDN_URL || process.env.BUNNY_IMAGE_STORAGE_LIBRARY;
+
+    return {
+        ...result,
+        url: `${publicBaseUrl}${filePath}`
+    };
 };
 
 
