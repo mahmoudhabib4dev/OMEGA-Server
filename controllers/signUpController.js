@@ -4,8 +4,9 @@ const jwt = require('jsonwebtoken');
 const logger = require('../helpers/logger.js');
 const loggerStatus = require('../helpers/loggingStatus.js');
 const requestBodyParser = require('../helpers/requestBodyParser.js');
-const { REQUIRED_FIELDS_MESSING, MISSING_FIELDS, ROLE_ERROR } = require('../configs/messages.js');
+const { REQUIRED_FIELDS_MESSING, MISSING_FIELDS, ROLE_ERROR ,SERVER_ERROR } = require('../configs/messages.js');
 const errorHandler = require('./errorController.js');
+const successHandler = require('../controllers/successController.js');
 
 const signUpTeacher = async (req, res) => {
 
@@ -105,7 +106,7 @@ const signUpTeacher = async (req, res) => {
             return errorHandler(res, 409, 'Conflict', { success: false, message: 'Phone, email, or license number already exists' });
         }
 
-        return errorHandler(res, 500, error.message, { success: false, message: 'Server internal error' });
+        return errorHandler(res, 500, error.message, { success: false, message: SERVER_ERROR });
     } finally {
         if (client) client.release();
     }

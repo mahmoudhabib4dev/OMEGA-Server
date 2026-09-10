@@ -1,22 +1,25 @@
 
 
 module.exports = {
-    METHOD_NOT_ALLOWED: 'Only post metho is allowed',
-    SIGNUP_SUCCESSFULLY: 'sign up successfully',
-    PAGE_NOT_FOUND: 'Page not found',
-    VIDEO_UPLOADED_SUCCESSFULLY: 'Video uploaded to Bunny successfully!',
-    FAILED_TO_UPLOAD_VIDEO: 'Failed to upload video',
-    INVALID_CONTENT_TYPE: 'Invalid Content-Type',
-    MALEFORMED_HEADERS: 'Malformed headers',
-    ERROR_WRITING_FILE: 'Error writing file',
-    FAILED_TO_UPLOAD_IMAGE: 'Failed to upload image',
-    INVALID_FILE_TYPE: 'Invalid File Type',
-    ONLY_IMAGES_ALLOWED: 'Only image files are allowed',
-    IMAGE_UPLOADED_SUCCESSFULLY: 'Image uploaded successfully!',
-    REQUIRED_FIELDS_MESSING: 'Required fields missing: full_name, phone, password, specialty, title, license_number, and years_experience are mandatory.',
-    MISSING_FIELDS: 'Missing Fields', 
-    ROLE_ERROR: 'Role Error' , 
-    TEACHER_ROLE_DOES_NOT_EXIST: 'Teacher role does not exist in DB'
-
+    METHOD_NOT_ALLOWED: 'يُسمح باستخدام طريقة POST فقط',
+    SIGNUP_SUCCESSFULLY: 'تم إنشاء الحساب بنجاح',
+    PAGE_NOT_FOUND: 'الصفحة غير موجودة',
+    VIDEO_UPLOADED_SUCCESSFULLY: 'تم رفع الفيديو إلى Bunny بنجاح!',
+    FAILED_TO_UPLOAD_VIDEO: 'تعذّر رفع الفيديو',
+    INVALID_CONTENT_TYPE: 'نوع المحتوى غير صالح',
+    MALEFORMED_HEADERS: 'ترويسات الطلب غير صالحة',
+    ERROR_WRITING_FILE: 'حدث خطأ أثناء كتابة الملف',
+    FAILED_TO_UPLOAD_IMAGE: 'تعذّر رفع الصورة',
+    INVALID_FILE_TYPE: 'نوع الملف غير صالح',
+    ONLY_IMAGES_ALLOWED: 'يُسمح برفع ملفات الصور فقط',
+    IMAGE_UPLOADED_SUCCESSFULLY: 'تم رفع الصورة بنجاح!',
+    REQUIRED_FIELDS_MESSING: 'الحقول المطلوبة مفقودة: الاسم الكامل، ورقم الهاتف، وكلمة المرور، والاختصاص، واللقب، ورقم الترخيص، وعدد سنوات الخبرة حقول إلزامية.',
+    MISSING_FIELDS: 'الحقول المطلوبة مفقودة',
+    ROLE_ERROR: 'خطأ في الصلاحية',
+    TEACHER_ROLE_DOES_NOT_EXIST: 'دور المدرّس غير موجود في قاعدة البيانات',
+    MISSING_ID: 'معرّف المدير أو المدرّس مفقود',
+    SERVER_ERROR: 'خطأ داخلي في الخادم',
+    USER_NOT_FOUND: 'المستخدم غير موجود',
+    YOU_ARE_NOT_AUTHORIZED: 'غير مسموح لك القيام بالعملية'
 
 }

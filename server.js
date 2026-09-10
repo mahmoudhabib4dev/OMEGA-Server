@@ -6,8 +6,9 @@ const handleErrorsRoutes = require('./controllers/errorController.js');
 const logger = require('./helpers/logger.js');
 const loggerStatus = require('./helpers/loggingStatus.js');
 const checkDBConnection = require('./helpers/dbConnectionChecker.js');
-const { TEACHER_SIGNUP_PATH, VIDEO_UPLOAD_PATH,IMAGE_UPLOAD_PATH } = require('./configs/paths.js');
+const { TEACHER_SIGNUP_PATH, VIDEO_UPLOAD_PATH, IMAGE_UPLOAD_PATH, CREATE_COURSE } = require('./configs/paths.js');
 const handleUploadImageRoute = require('./routes/imageRoutes.js');
+const { handleCreateCourse } = require('./routes/coursesRoutes.js');
 
 
 const port = process.env.PORT;
@@ -24,6 +25,9 @@ const server = createServer((req, res) => {
             break;
         case IMAGE_UPLOAD_PATH:
             handleUploadImageRoute(req, res);
+            break;
+        case CREATE_COURSE:
+            handleCreateCourse(req, res);
             break;
         default:
             handleErrorsRoutes(req, res);
