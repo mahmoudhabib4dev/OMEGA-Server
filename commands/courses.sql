@@ -10,7 +10,7 @@ CREATE TABLE courses (
         ON DELETE SET NULL,
 
     title VARCHAR(255) NOT NULL,
-    description TEXT,
+    description TEXT, 
     cover_image_url TEXT,
 
     status VARCHAR(20) NOT NULL DEFAULT 'draft'

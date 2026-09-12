@@ -20,6 +20,8 @@ module.exports = {
     MISSING_ID: 'معرّف المدير أو المدرّس مفقود',
     SERVER_ERROR: 'خطأ داخلي في الخادم',
     USER_NOT_FOUND: 'المستخدم غير موجود',
-    YOU_ARE_NOT_AUTHORIZED: 'غير مسموح لك القيام بالعملية'
+    YOU_ARE_NOT_AUTHORIZED: 'غير مسموح لك القيام بالعملية',
+    COURSE_WAS_NOT_CREATED: 'فشل إنشاء الكورس', 
+    COURSE_CREATED_SUCCESSFULLY: 'تم إنشاء الكورس بنجاح'
 
 }
