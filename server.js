@@ -2,13 +2,13 @@ require('dotenv').config();
 const { createServer } = require('node:http');
 const handleSignUpRoutes = require('./routes/signUpRoutes.js');
 const { handleUploadVideoRoute } = require('./routes/videoRoutes.js');
-const handleErrorsRoutes = require('./controllers/errorController.js');
+const handleErrorsRoutes = require('./routes/errorsRoutes.js');
 const logger = require('./helpers/logger.js');
 const loggerStatus = require('./helpers/loggingStatus.js');
 const checkDBConnection = require('./helpers/dbConnectionChecker.js');
-const { TEACHER_SIGNUP_PATH, VIDEO_UPLOAD_PATH, IMAGE_UPLOAD_PATH, CREATE_COURSE } = require('./configs/paths.js');
+const { TEACHER_SIGNUP_PATH, VIDEO_UPLOAD_PATH, IMAGE_UPLOAD_PATH, CREATE_COURSE, DELETE_COURSE } = require('./configs/paths.js');
 const handleUploadImageRoute = require('./routes/imageRoutes.js');
-const { handleCreateCourse } = require('./routes/coursesRoutes.js');
+const { handleCreateCourse, handelDeleteCourse } = require('./routes/coursesRoutes.js');
 
 
 const port = process.env.PORT;
@@ -28,6 +28,9 @@ const server = createServer((req, res) => {
             break;
         case CREATE_COURSE:
             handleCreateCourse(req, res);
+            break;
+        case DELETE_COURSE:
+            handelDeleteCourse(req, res);
             break;
         default:
             handleErrorsRoutes(req, res);

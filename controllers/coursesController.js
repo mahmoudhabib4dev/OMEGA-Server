@@ -8,9 +8,13 @@ const { REQUIRED_FIELDS_MESSING,
     MISSING_ID,
     SERVER_ERROR,
     USER_NOT_FOUND,
+    MISSING_COURSE_ID,
     YOU_ARE_NOT_AUTHORIZED,
     COURSE_WAS_NOT_CREATED,
-    COURSE_CREATED_SUCCESSFULLY } = require('../configs/messages.js');
+    COURSE_CREATED_SUCCESSFULLY,
+    YOU_ARE_NOT_THE_OWNER,
+    COURSE_NOT_FOUND,
+    COURSE_DELETED_SUCCESSFULLY } = require('../configs/messages.js');
 const logger = require('../helpers/logger.js');
 
 const createCourse = async (req, res) => {
@@ -61,4 +65,74 @@ const createCourse = async (req, res) => {
 };
 
 
-module.exports = { createCourse };
+
+
+const deleteCourse = async (req, res) => {
+    const reqBody = await requestBodyParser(req);
+    let client;
+    try {
+        client = await pool.connect();
+        const { id, user_id } = reqBody;
+        if (id === undefined) {
+            return errorHandler(res, 400, MISSING_COURSE_ID, {
+                success: false,
+                message: MISSING_COURSE_ID
+            });
+        }
+        if (user_id === undefined) {
+            return errorHandler(res, 400, MISSING_ID, {
+                success: false,
+                message: MISSING_ID
+            });
+        }
+
+        const courseExists = await client.query(`SELECT created_by FROM courses WHERE id=$1`, [id]);
+
+        if (courseExists.rowCount === 0) {
+            return errorHandler(res, 404, COURSE_NOT_FOUND, {
+                success: false,
+                message: COURSE_NOT_FOUND
+            });
+        }
+
+        const userExsists = await client.query(`SELECT * FROM users WHERE id=$1`, [user_id]);
+        if (userExsists.rowCount === 0) {
+            return errorHandler(res, 400, USER_NOT_FOUND, {
+                success: false,
+                message: USER_NOT_FOUND
+            });
+        }
+
+        const userRole = await client.query(`SELECT name FROM roles where id=$1`, [userExsists.rows[0].role_id]);
+        const role = userRole.rows[0].name;
+        if (role !== 'admin' && role !== 'teacher' && role !== 'super_admin') {
+            return errorHandler(res, 403, YOU_ARE_NOT_AUTHORIZED, {
+                success: false,
+                message: YOU_ARE_NOT_AUTHORIZED
+            });
+        }
+
+        if (role === 'teacher') {
+            if (String(courseExists.rows[0].created_by) !== String(user_id)) {
+                return errorHandler(res, 403, YOU_ARE_NOT_THE_OWNER, {
+                    success: false,
+                    message: YOU_ARE_NOT_THE_OWNER
+                });
+            }
+        }
+
+        await client.query(`DELETE FROM courses WHERE id=$1`, [id]);
+
+        return successHandler(res, 200, COURSE_DELETED_SUCCESSFULLY, {
+            success: true,
+            message: COURSE_DELETED_SUCCESSFULLY
+        });
+    } catch (error) {
+        return errorHandler(res, 500, error.message, { success: false, message: SERVER_ERROR });
+    } finally {
+        if (client) client.release();
+    }
+};
+
+
+module.exports = { createCourse, deleteCourse };

@@ -22,6 +22,10 @@ module.exports = {
     USER_NOT_FOUND: 'المستخدم غير موجود',
     YOU_ARE_NOT_AUTHORIZED: 'غير مسموح لك القيام بالعملية',
     COURSE_WAS_NOT_CREATED: 'فشل إنشاء الكورس', 
-    COURSE_CREATED_SUCCESSFULLY: 'تم إنشاء الكورس بنجاح'
+    COURSE_CREATED_SUCCESSFULLY: 'تم إنشاء الكورس بنجاح',
+    MISSING_COURSE_ID : 'معرف الكورس مفقود',
+    COURSE_NOT_FOUND: 'لم يتم العثور على الكورس',
+    YOU_ARE_NOT_THE_OWNER:'أنت لست مالك الكورس'
+    ,COURSE_DELETED_SUCCESSFULLY: 'تم حذف الكورس بنجاح'
 
 }
