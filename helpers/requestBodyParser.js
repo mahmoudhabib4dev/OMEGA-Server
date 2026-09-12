@@ -8,6 +8,8 @@ const requestBodyParser = (req) => {
             try {
                 resolve(body ? JSON.parse(body) : {});
             } catch (error) {
+                error.statusCode = 400;
+                error.publicMessage = 'Invalid JSON request body';
                 reject(error);
             }
         });

@@ -25,7 +25,13 @@ module.exports = {
     COURSE_CREATED_SUCCESSFULLY: 'تم إنشاء الكورس بنجاح',
     MISSING_COURSE_ID : 'معرف الكورس مفقود',
     COURSE_NOT_FOUND: 'لم يتم العثور على الكورس',
+    COURSES_NOT_FOUND: 'لم يتم العثور على كورسات',
     YOU_ARE_NOT_THE_OWNER:'أنت لست مالك الكورس'
-    ,COURSE_DELETED_SUCCESSFULLY: 'تم حذف الكورس بنجاح'
+    ,COURSE_DELETED_SUCCESSFULLY: 'تم حذف الكورس بنجاح',
+    MISSING_SEARCH_QUERY: 'اسم الكورس مفقود',
+    MISSING_STATUS:'يجب إرسال حالة الكورس',
+    COURSES_FOUND_SUCCESSFULLY: 'تم العثور على الكورسات بنجاح',
+    UPDATE_COURSE_FAILED: 'فشل تحديث الكورس', 
+    UPDATE_COURSE_SUCCESSFULLY: 'تم تحديث الكورس بنجاح'
 
 }
