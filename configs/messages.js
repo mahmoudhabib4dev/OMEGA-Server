@@ -32,6 +32,8 @@ module.exports = {
     MISSING_STATUS:'يجب إرسال حالة الكورس',
     COURSES_FOUND_SUCCESSFULLY: 'تم العثور على الكورسات بنجاح',
     UPDATE_COURSE_FAILED: 'فشل تحديث الكورس', 
-    UPDATE_COURSE_SUCCESSFULLY: 'تم تحديث الكورس بنجاح'
+    UPDATE_COURSE_SUCCESSFULLY: 'تم تحديث الكورس بنجاح', 
+    MISSING_TEACHER_NAME: 'لم يتم إدخال اسم الاستاذ',
+    TEACHER_COURSES_FOUND_SUCCESSFULLY: 'تم العثور على كورسات الاستاذ بنجاح'
 
 }

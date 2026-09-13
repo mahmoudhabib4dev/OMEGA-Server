@@ -19,7 +19,9 @@ const {
     COURSES_NOT_FOUND,
     MISSING_SEARCH_QUERY,
     COURSES_FOUND_SUCCESSFULLY,
-    MISSING_STATUS
+    MISSING_STATUS,
+    MISSING_TEACHER_NAME,
+    TEACHER_COURSES_FOUND_SUCCESSFULLY
 } = require('../configs/messages.js');
 
 
@@ -400,8 +402,76 @@ const searchCoursesStatus = async (req, res) => {
 };
 
 
+const searchCoursesByTeacherName = async (req, res) => {
+    const reqBody = await requestBodyParser(req);
+    let client;
+    try {
+        const { teacher_name } = reqBody;
+        client = await pool.connect();
+        if (typeof teacher_name !== 'string' || teacher_name.trim() === '') {
+            return errorHandler(res, 400, MISSING_TEACHER_NAME, {
+                success: false,
+                message: MISSING_TEACHER_NAME
+            });
+        }
+
+        const teacherResult = await client.query(
+            `SELECT users.id, users.full_name
+             FROM users
+             JOIN roles ON roles.id = users.role_id
+             WHERE users.full_name ILIKE $1
+               AND roles.name = 'teacher'
+             ORDER BY users.full_name ASC`,
+            [`%${teacher_name.trim()}%`]
+        );
+
+        if (teacherResult.rowCount === 0) {
+            return errorHandler(res, 400, USER_NOT_FOUND, {
+                success: false,
+                message: USER_NOT_FOUND
+            });
+        }
+
+        const teacherIds = teacherResult.rows.map(teacher => teacher.id);
+        const coursesResult = await client.query(
+            `SELECT courses.*, users.full_name AS teacher_name
+             FROM courses
+             JOIN users ON users.id = courses.teacher_id
+             WHERE courses.teacher_id = ANY($1::bigint[])
+             ORDER BY courses.title ASC`,
+            [teacherIds]
+        );
+
+        if (coursesResult.rowCount === 0) {
+            return errorHandler(res, 404, COURSES_NOT_FOUND, {
+                success: false,
+                message: COURSES_NOT_FOUND
+            });
+        }
+
+        return successHandler(res, 200, TEACHER_COURSES_FOUND_SUCCESSFULLY, {
+            success: true,
+            message: TEACHER_COURSES_FOUND_SUCCESSFULLY,
+            teachers: teacherResult.rows,
+            courses: coursesResult.rows
+        });
+
+    } catch (error) {
+        return errorHandler(res, 500, error.message, { success: false, message: SERVER_ERROR });
+    } finally {
+        if (client) client.release();
+    }
+};
 
 
 
 
-module.exports = { createCourse, deleteCourse, updateCourse, searchCoursesByNameForTeacher, searchCoursesByName, searchCoursesStatus };
+module.exports = {
+    createCourse,
+    deleteCourse,
+    updateCourse,
+    searchCoursesByNameForTeacher,
+    searchCoursesByName,
+    searchCoursesStatus,
+    searchCoursesByTeacherName
+};

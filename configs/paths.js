@@ -8,5 +8,6 @@ module.exports = {
 	UPDATE_COURSE: '/api/v1/courses/update', 
 	SEARCH_COURSES_BY_NAME_FOR_TEACHER: '/api/v1/courses/search/teacher',
 	SEARCH_COURSES_BY_NAME: '/api/v1/courses/search',
-	GET_COURSES_STATUS: '/api/v1/courses/search/status'
+	GET_COURSES_STATUS: '/api/v1/courses/search/status',
+	SEARCH_COURSES_BY_TEACHER_NAME: '/api/v1/courses/search/teacher-name'
 }

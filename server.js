@@ -16,7 +16,8 @@ const {
     UPDATE_COURSE,
     SEARCH_COURSES_BY_NAME_FOR_TEACHER,
     SEARCH_COURSES_BY_NAME,
-    GET_COURSES_STATUS
+    GET_COURSES_STATUS,
+    SEARCH_COURSES_BY_TEACHER_NAME
 } = require('./configs/paths.js');
 const handleUploadImageRoute = require('./routes/imageRoutes.js');
 const { handleCreateCourse,
@@ -24,7 +25,8 @@ const { handleCreateCourse,
     handleUpdateCourse,
     handleSearchCoursesByNameForTeacher,
     handleSearchCoursesByName,
-    handleSearchCoursesStatus } = require('./routes/coursesRoutes.js');
+    handleSearchCoursesStatus,
+    handleSearchCoursesByTeacherName } = require('./routes/coursesRoutes.js');
 
 
 const port = process.env.PORT;
@@ -60,6 +62,9 @@ const server = createServer((req, res) => {
             break;
         case GET_COURSES_STATUS:
             routeHandler = handleSearchCoursesStatus;
+            break;
+        case SEARCH_COURSES_BY_TEACHER_NAME:
+            routeHandler = handleSearchCoursesByTeacherName;
             break;
         default:
             routeHandler = handleErrorsRoutes;
