@@ -17,16 +17,37 @@ const {
     SEARCH_COURSES_BY_NAME_FOR_TEACHER,
     SEARCH_COURSES_BY_NAME,
     GET_COURSES_STATUS,
-    SEARCH_COURSES_BY_TEACHER_NAME
+    SEARCH_COURSES_BY_TEACHER_NAME,
+    CREATE_CAROUSEL_ENTRY,
+    DELETE_CAROUSEL_ENTRY,
+    UPDATE_CAROUSEL_ENTRY,
+    GET_OUR_TEACHERS,
+    GET_OUT_COURSES,
+    GET_LANDING_PAGE_VIDEO,
+    CREATE_LANDING_PAGE_VIDEO,
+    UPDATE_LANDING_PAGE_VIDEO,
+    DELETE_LANDING_PAGE_VIDEO
 } = require('./configs/paths.js');
 const handleUploadImageRoute = require('./routes/imageRoutes.js');
-const { handleCreateCourse,
+const {
+    handleCreateCourse,
     handleDeleteCourse,
     handleUpdateCourse,
     handleSearchCoursesByNameForTeacher,
     handleSearchCoursesByName,
     handleSearchCoursesStatus,
     handleSearchCoursesByTeacherName } = require('./routes/coursesRoutes.js');
+const {
+    handleCreateCarouselEntryRoute,
+    handleDeleteCarouselEntryRoute,
+    handleUpdateCarouselEntryRoute,
+    handleGetOurTeahcersRoute,
+    handleGetLatestCoursesRoute,
+    handleCreateLandingPageVideo,
+    handleUpdateLandingPageVideo,
+    handleDeleteLandingPageVideo,
+    handleGetLandingPageVideo
+} = require('./routes/landingPageRoutes.js')
 
 
 const port = process.env.PORT;
@@ -65,6 +86,33 @@ const server = createServer((req, res) => {
             break;
         case SEARCH_COURSES_BY_TEACHER_NAME:
             routeHandler = handleSearchCoursesByTeacherName;
+            break;
+        case CREATE_CAROUSEL_ENTRY:
+            routeHandler = handleCreateCarouselEntryRoute;
+            break;
+        case DELETE_CAROUSEL_ENTRY:
+            routeHandler = handleDeleteCarouselEntryRoute;
+            break;
+        case UPDATE_CAROUSEL_ENTRY:
+            routeHandler = handleUpdateCarouselEntryRoute;
+            break;
+        case GET_OUR_TEACHERS:
+            routeHandler = handleGetOurTeahcersRoute;
+            break;
+        case GET_OUT_COURSES:
+            routeHandler = handleGetLatestCoursesRoute;
+            break;
+        case GET_LANDING_PAGE_VIDEO:
+            routeHandler = handleGetLandingPageVideo;
+            break;
+        case CREATE_LANDING_PAGE_VIDEO:
+            routeHandler = handleCreateLandingPageVideo;
+            break;
+        case UPDATE_LANDING_PAGE_VIDEO:
+            routeHandler = handleUpdateLandingPageVideo;
+            break;
+        case DELETE_LANDING_PAGE_VIDEO:
+            routeHandler = handleDeleteLandingPageVideo;
             break;
         default:
             routeHandler = handleErrorsRoutes;

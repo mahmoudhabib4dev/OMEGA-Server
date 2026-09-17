@@ -34,6 +34,24 @@ module.exports = {
     UPDATE_COURSE_FAILED: 'فشل تحديث الكورس', 
     UPDATE_COURSE_SUCCESSFULLY: 'تم تحديث الكورس بنجاح', 
     MISSING_TEACHER_NAME: 'لم يتم إدخال اسم الاستاذ',
-    TEACHER_COURSES_FOUND_SUCCESSFULLY: 'تم العثور على كورسات الاستاذ بنجاح'
+    TEACHER_COURSES_FOUND_SUCCESSFULLY: 'تم العثور على كورسات الاستاذ بنجاح',
+     CAROUSEL_ENTRY_WAS_NOT_CREATED : 'فشلت عملية إنشاء السلايد',
+    CAROUSEL_ENTRY_CREATED_SUCCESSFULLY: 'تم إنشاء السلايد بنجاح',
+    CAROUSEL_DELETED_SUCCESSFULLY: 'تم حذف السلايد بنجاح',
+    MISSING_SLIDE_ID:'معرف السلايد مفقود',
+    SLIDE_NOT_FOUND: 'لم يتم العثور على السلايد', 
+    UPDATE_SLIDE_FAILED:'فشل تحديث السلايد',
+    UPDATE_SLIDE_SUCCESSFULLY:'تم تحديث السلايد بنجاح',
+    USERS_NOT_FOUND:' لا يوجد مستخدمون',
+    TEACHERS_GOT_SUCCESSFULLY:'تم جلب المستخدمين بنجاح',
+    VIDEO_ENTRY_WAS_NOT_CREATED:'لم يتم إنشاء الفيديو',
+    VIDEO_ENTRY_CREATED_SUCCESSFULLY: 'تم إنشاء الفيديو بنجاح',
+    MISSING_URL:'معرف الصورة أو الفيديو مفقود',
+    VIDEO_ENTRY_WAS_NOT_UPDATED: 'لم يتم تحديث الفيديو',
+    VIDEO_ENTRY_UPDATED_SUCCESSFULLY:'تم تحديث الفيديو بنجاح',
+    VIDEO_ENTRY_WAS_NOT_DELETED:'لم يتم حذف الفيديو',
+    VIDEO_ENTRY_DELETED_SUCCESSFULLY:' تم حذف الفيديو بنجاح',
+    VIDEO_NOT_FOUND:'لم يتم العثور على الفيديو',
+    VIDEO_FOUND_SUCCESSFULLY: 'تم جلب الفيديو بنجاح'
 
 }

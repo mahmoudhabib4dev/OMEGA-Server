@@ -1,10 +1,9 @@
 #! /api/v1/auth/signup
 
 const { signUpTeacher } = require('../controllers/signUpController.js');
-const loggerStatus = require('../helpers/loggingStatus.js');
 const errorHandler = require('../controllers/errorController.js');
-const { METHOD_NOT_ALLOWED, SIGNUP_SUCCESSFULLY } = require('../configs/messages.js');
-const { CONTENT_TYPE, CONTENT_TYPE_VALUE } = require('../configs/constants.js');
+const { METHOD_NOT_ALLOWED } = require('../configs/messages.js');
+
 
 
 const handleSignUpRoutes = (req, res) => {
