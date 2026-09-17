@@ -30,7 +30,15 @@ const createCourse = async (req, res) => {
     let client;
     try {
         client = await pool.connect();
-        const { id, teacher_id, title, description, cover_image_url } = reqBody;
+        const {
+            id,
+            teacher_id,
+            title,
+            description,
+            cover_image_url,
+            price,
+            target_years
+        } = reqBody;
         const user = await client.query(`SELECT * FROM users WHERE id=$1`, [id]);
         if (id === undefined) {
             return errorHandler(res, 400, MISSING_ID, {
@@ -52,8 +60,9 @@ const createCourse = async (req, res) => {
                 message: YOU_ARE_NOT_AUTHORIZED
             });
         }
-        const createCourseResult = await client.query(`INSERT INTO courses (created_by , teacher_id , title , description , cover_image_url) VALUES ($1, $2, $3, $4, $5) RETURNING *`, [
-            id, teacher_id, title, description, cover_image_url
+        const createCourseResult = await client.query(`INSERT INTO courses (created_by, teacher_id, title, description, cover_image_url, price, target_years) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`, [
+            id, teacher_id, title, description, cover_image_url, price ?? 0,
+            target_years ?? ['national_exam']
         ]);
 
         if (createCourseResult.rowCount !== 1) {
@@ -144,7 +153,15 @@ const updateCourse = async (req, res) => {
     let client;
     try {
         client = await pool.connect();
-        const { id, user_id, title, description, cover_image_url } = reqBody;
+        const {
+            id,
+            user_id,
+            title,
+            description,
+            cover_image_url,
+            price,
+            target_years
+        } = reqBody;
         if (id === undefined) {
             return errorHandler(res, 400, MISSING_COURSE_ID, {
                 success: false,
@@ -195,10 +212,15 @@ const updateCourse = async (req, res) => {
         }
 
         const updateCourseResult = await client.query(`
-            UPDATE  courses SET title=COALESCE($1, title) ,
-             description=COALESCE($2,description ) ,
-             cover_image_url=COALESCE($3, cover_image_url) WHERE id=$4`,
-            [title ?? null, description ?? null, cover_image_url ?? null, id]);
+            UPDATE courses SET
+                title=COALESCE($1, title),
+                description=COALESCE($2, description),
+                cover_image_url=COALESCE($3, cover_image_url),
+                price=COALESCE($4, price),
+                target_years=COALESCE($5, target_years)
+            WHERE id=$6`,
+            [title ?? null, description ?? null, cover_image_url ?? null,
+                price ?? null, target_years ?? null, id]);
 
 
         if (updateCourseResult.rowCount === 0) {
@@ -208,7 +230,7 @@ const updateCourse = async (req, res) => {
             });
         }
 
-        return res.status(200).json({
+        return successHandler(res, 200, UPDATE_COURSE_SUCCESSFULLY, {
             success: true,
             message: UPDATE_COURSE_SUCCESSFULLY
         });
