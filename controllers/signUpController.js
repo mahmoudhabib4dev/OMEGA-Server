@@ -110,15 +110,6 @@ const signUpTeacher = async (req, res) => {
         if (client) client.release();
     }
 
-
-
-
-
-
-
-
-
-
 };
 
 

@@ -55,6 +55,9 @@ module.exports = {
     VIDEO_FOUND_SUCCESSFULLY: 'تم جلب الفيديو بنجاح.',
     MISSING_EMAIL: 'يرجى إدخال البريد الإلكتروني.',
     MISSING_PASSWORD: 'يرجى إدخال كلمة المرور.',
-    USER_NOT_ACTIVE: 'حساب المستخدم غير مفعّل.'
+    USER_NOT_ACTIVE: 'حساب المستخدم غير مفعّل.',
+    TEACHER_ACCOUNT_NOT_FOUND : 'لم يتم العثور على حساب معلم',
+    TEACHER_ACCOUNT_NOT_APPROVED_YET: 'لم يتم تأكيد الحساب بعد',
+    WRONG_PASSWORD:'كلمة المرور غير صحيحة'
 
 }
