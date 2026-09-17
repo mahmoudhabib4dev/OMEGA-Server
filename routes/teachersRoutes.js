@@ -20,7 +20,7 @@ const handleDeleteTeacher = async (req, res) => {
 
 
 const handleUpdateTeacher = async (req, res) => {
-    if (req.method === 'DELETE') {
+    if (req.method === 'PATCH') {
         await updateTeacher(req, res);
     }
     else {

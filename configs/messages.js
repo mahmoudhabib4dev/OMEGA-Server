@@ -62,6 +62,15 @@ module.exports = {
     MISSING_STUDENT_FIELDS: 'الحقول الالزامية المطلوبة: الاسم الكامل , الجامعة , الصورة الشخصية , رقم الهاتف , كلمة المرور , المرحلة , الإيميل',
     STUDENT_ROLE_DOES_NOT_EXIST:'دور الطالب غير موجود في قاعدة البيانات.',
     STUDENT_REGIUSTERD_SUCCESSFULLY: 'تم إنشاء حساب الطالب بنجاح',
-    TEACHER_REGISTERED_SUCCESSFULLY: 'تم إنشاء حساب الأستاذ بنجاح'
+    TEACHER_REGISTERED_SUCCESSFULLY: 'تم إنشاء حساب الأستاذ بنجاح',
+    MISSING_STUDENT_ID: 'معرف الطالب مفقود', 
+    STUDENT_DELETED_SUCCESSFULLY: 'تم حذف حساب الطالب بنجاح.',
+    STUDENT_NOT_THE_OWNER: 'لست مالك حساب الطالب.',
+    MISSING_TEACHER_ID:'معرف الأستاذ مفقود',
+    TEACHER_DELETED_SUCCESSFULLY: 'تم حذف الأستاذ بنجاح',
+    UPDATE_TEACHER_SUCCESSFULLY: 'تم تحديث حساب الأستاذ بنجاح',
+    UPDATE_STUDENT_SUCCESSFULLY: 'تم تحديث حساب الطالب بنجاح',
+    UPDATE_STUDENT_FAILED: 'فشل تحديث حساب الطالب',
+    UPDATE_TEACHERS_FAILED:'فشل تحديث حساب الأستاذ'
 
 }

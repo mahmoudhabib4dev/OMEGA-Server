@@ -19,7 +19,7 @@ const handleDeleteStudent = async (req, res) => {
 
 
 const handleUpdateStudent = async (req, res) => {
-    if (req.method === 'DELETE') {
+    if (req.method === 'PATCH') {
         await updateStudent(req, res);
     }
     else {
