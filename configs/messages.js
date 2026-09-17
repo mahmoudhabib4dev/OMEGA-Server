@@ -13,7 +13,7 @@ module.exports = {
     INVALID_FILE_TYPE: 'نوع الملف غير صالح.',
     ONLY_IMAGES_ALLOWED: 'يُسمح برفع ملفات الصور فقط.',
     IMAGE_UPLOADED_SUCCESSFULLY: 'تم رفع الصورة بنجاح.',
-    REQUIRED_FIELDS_MESSING: 'الحقول الإلزامية المفقودة: الاسم الكامل، رقم الهاتف، كلمة المرور، التخصص، المسمى الوظيفي، رقم الترخيص، وعدد سنوات الخبرة.',
+    REQUIRED_FIELDS_MESSING: 'الحقول الإلزامية المطلوبة: الاسم الكامل، رقم الهاتف، كلمة المرور، التخصص، المسمى الوظيفي، رقم الترخيص، وعدد سنوات الخبرة.',
     MISSING_FIELDS: 'يرجى استكمال الحقول الإلزامية.',
     ROLE_ERROR: 'تعذّر تحديد صلاحية المستخدم.',
     TEACHER_ROLE_DOES_NOT_EXIST: 'دور المعلم غير موجود في قاعدة البيانات.',
@@ -58,6 +58,10 @@ module.exports = {
     USER_NOT_ACTIVE: 'حساب المستخدم غير مفعّل.',
     TEACHER_ACCOUNT_NOT_FOUND : 'لم يتم العثور على حساب معلم',
     TEACHER_ACCOUNT_NOT_APPROVED_YET: 'لم يتم تأكيد الحساب بعد',
-    WRONG_PASSWORD:'كلمة المرور غير صحيحة'
+    WRONG_PASSWORD:'كلمة المرور غير صحيحة',
+    MISSING_STUDENT_FIELDS: 'الحقول الالزامية المطلوبة: الاسم الكامل , الجامعة , الصورة الشخصية , رقم الهاتف , كلمة المرور , المرحلة , الإيميل',
+    STUDENT_ROLE_DOES_NOT_EXIST:'دور الطالب غير موجود في قاعدة البيانات.',
+    STUDENT_REGIUSTERD_SUCCESSFULLY: 'تم إنشاء حساب الطالب بنجاح',
+    TEACHER_REGISTERED_SUCCESSFULLY: 'تم إنشاء حساب الأستاذ بنجاح'
 
 }

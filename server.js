@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { createServer } = require('node:http');
 const errorHandler = require('./controllers/errorController.js');
-const handleSignUpRoutes = require('./routes/signUpRoutes.js');
+const {handleSignUpTeacherRoutes , handleSignUpStudentRoutes} = require('./routes/signUpRoutes.js');
 const { handleUploadVideoRoute } = require('./routes/videoRoutes.js');
 const handleErrorsRoutes = require('./routes/errorsRoutes.js');
 const logger = require('./helpers/logger.js');
@@ -9,6 +9,7 @@ const loggerStatus = require('./helpers/loggingStatus.js');
 const checkDBConnection = require('./helpers/dbConnectionChecker.js');
 const {
     TEACHER_SIGNUP_PATH,
+    STUDENT_SIGNUP_PATH,
     VIDEO_UPLOAD_PATH,
     IMAGE_UPLOAD_PATH,
     CREATE_COURSE,
@@ -64,7 +65,10 @@ const server = createServer((req, res) => {
             routeHandler = handleLoginRoutes;
             break;
         case TEACHER_SIGNUP_PATH:
-            routeHandler = handleSignUpRoutes;
+            routeHandler = handleSignUpTeacherRoutes;
+            break;
+            case STUDENT_SIGNUP_PATH:
+            routeHandler = handleSignUpStudentRoutes;
             break;
         case VIDEO_UPLOAD_PATH:
             routeHandler = handleUploadVideoRoute;
