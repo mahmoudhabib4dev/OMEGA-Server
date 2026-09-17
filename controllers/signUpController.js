@@ -89,7 +89,6 @@ const signUpTeacher = async (req, res) => {
         return successHandler(res, 201, 'Teacher registered successfully', {
             success: true,
             message: 'Teacher registered successfully and pending approval.',
-            token,
             user: {
                 id: newUser.id,
                 full_name: newUser.full_name,

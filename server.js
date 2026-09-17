@@ -26,7 +26,8 @@ const {
     GET_LANDING_PAGE_VIDEO,
     CREATE_LANDING_PAGE_VIDEO,
     UPDATE_LANDING_PAGE_VIDEO,
-    DELETE_LANDING_PAGE_VIDEO
+    DELETE_LANDING_PAGE_VIDEO, 
+    LOGIN_PATH
 } = require('./configs/paths.js');
 const handleUploadImageRoute = require('./routes/imageRoutes.js');
 const {
@@ -47,7 +48,9 @@ const {
     handleUpdateLandingPageVideo,
     handleDeleteLandingPageVideo,
     handleGetLandingPageVideo
-} = require('./routes/landingPageRoutes.js')
+} = require('./routes/landingPageRoutes.js');
+
+const handleLoginRoutes = require('./routes/loginRoutes.js');
 
 
 const port = process.env.PORT;
@@ -57,6 +60,9 @@ const server = createServer((req, res) => {
 
     let routeHandler;
     switch (req.url) {
+        case LOGIN_PATH:
+            routeHandler = handleLoginRoutes;
+            break;
         case TEACHER_SIGNUP_PATH:
             routeHandler = handleSignUpRoutes;
             break;
