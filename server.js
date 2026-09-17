@@ -1,7 +1,9 @@
 require('dotenv').config();
 const { createServer } = require('node:http');
 const errorHandler = require('./controllers/errorController.js');
-const {handleSignUpTeacherRoutes , handleSignUpStudentRoutes} = require('./routes/signUpRoutes.js');
+const { handleSignUpTeacherRoutes, handleSignUpStudentRoutes } = require('./routes/signUpRoutes.js');
+const { handleUpdateStudent, handleDeleteStudent } = require('./routes/studentsRoutes.js');
+const { handleUpdateTeacher, handleDeleteTeacher } = require('./routes/teachersRoutes.js');
 const { handleUploadVideoRoute } = require('./routes/videoRoutes.js');
 const handleErrorsRoutes = require('./routes/errorsRoutes.js');
 const logger = require('./helpers/logger.js');
@@ -12,23 +14,28 @@ const {
     STUDENT_SIGNUP_PATH,
     VIDEO_UPLOAD_PATH,
     IMAGE_UPLOAD_PATH,
-    CREATE_COURSE,
-    DELETE_COURSE,
-    UPDATE_COURSE,
-    SEARCH_COURSES_BY_NAME_FOR_TEACHER,
-    SEARCH_COURSES_BY_NAME,
-    GET_COURSES_STATUS,
-    SEARCH_COURSES_BY_TEACHER_NAME,
-    CREATE_CAROUSEL_ENTRY,
-    DELETE_CAROUSEL_ENTRY,
-    UPDATE_CAROUSEL_ENTRY,
-    GET_OUR_TEACHERS,
-    GET_OUT_COURSES,
-    GET_LANDING_PAGE_VIDEO,
-    CREATE_LANDING_PAGE_VIDEO,
-    UPDATE_LANDING_PAGE_VIDEO,
-    DELETE_LANDING_PAGE_VIDEO, 
-    LOGIN_PATH
+    CREATE_COURSE_PATH,
+    DELETE_COURSE_PATH,
+    UPDATE_COURSE_PATH,
+    SEARCH_COURSES_BY_NAME_FOR_TEACHER_PATH,
+    SEARCH_COURSES_BY_NAME_PATH,
+    GET_COURSES_STATUS_PATH,
+    SEARCH_COURSES_BY_TEACHER_NAME_PATH,
+    CREATE_CAROUSEL_ENTRY_PATH,
+    DELETE_CAROUSEL_ENTRY_PATH,
+    UPDATE_CAROUSEL_ENTRY_PATH,
+    GET_OUR_TEACHERS_PATH,
+    GET_OUT_COURSES_PATH,
+    GET_LANDING_PAGE_VIDEO_PATH,
+    CREATE_LANDING_PAGE_VIDEO_PATH,
+    UPDATE_LANDING_PAGE_VIDEO_PATH,
+    DELETE_LANDING_PAGE_VIDEO_PATH,
+    LOGIN_PATH,
+    UPDATE_STUDENT_PATH,
+    UPDATE_TEACHER_PATH,
+    DELETE_STUDENT_PATH,
+    DELETE_TEACHER_PATH
+
 } = require('./configs/paths.js');
 const handleUploadImageRoute = require('./routes/imageRoutes.js');
 const {
@@ -67,8 +74,20 @@ const server = createServer((req, res) => {
         case TEACHER_SIGNUP_PATH:
             routeHandler = handleSignUpTeacherRoutes;
             break;
-            case STUDENT_SIGNUP_PATH:
+        case STUDENT_SIGNUP_PATH:
             routeHandler = handleSignUpStudentRoutes;
+            break;
+        case UPDATE_STUDENT_PATH:
+            routeHandler = handleUpdateStudent;
+            break;
+        case UPDATE_TEACHER_PATH:
+            routeHandler = handleUpdateTeacher;
+            break;
+        case DELETE_STUDENT_PATH:
+            routeHandler = handleDeleteStudent;
+            break;
+        case DELETE_TEACHER_PATH:
+            routeHandler = handleDeleteTeacher;
             break;
         case VIDEO_UPLOAD_PATH:
             routeHandler = handleUploadVideoRoute;
@@ -76,52 +95,52 @@ const server = createServer((req, res) => {
         case IMAGE_UPLOAD_PATH:
             routeHandler = handleUploadImageRoute;
             break;
-        case CREATE_COURSE:
+        case CREATE_COURSE_PATH:
             routeHandler = handleCreateCourse;
             break;
-        case DELETE_COURSE:
+        case DELETE_COURSE_PATH:
             routeHandler = handleDeleteCourse;
             break;
-        case UPDATE_COURSE:
+        case UPDATE_COURSE_PATH:
             routeHandler = handleUpdateCourse;
             break;
-        case SEARCH_COURSES_BY_NAME_FOR_TEACHER:
+        case SEARCH_COURSES_BY_NAME_FOR_TEACHER_PATH:
             routeHandler = handleSearchCoursesByNameForTeacher;
             break;
-        case SEARCH_COURSES_BY_NAME:
+        case SEARCH_COURSES_BY_NAME_PATH:
             routeHandler = handleSearchCoursesByName;
             break;
-        case GET_COURSES_STATUS:
+        case GET_COURSES_STATUS_PATH:
             routeHandler = handleSearchCoursesStatus;
             break;
-        case SEARCH_COURSES_BY_TEACHER_NAME:
+        case SEARCH_COURSES_BY_TEACHER_NAME_PATH:
             routeHandler = handleSearchCoursesByTeacherName;
             break;
-        case CREATE_CAROUSEL_ENTRY:
+        case CREATE_CAROUSEL_ENTRY_PATH:
             routeHandler = handleCreateCarouselEntryRoute;
             break;
-        case DELETE_CAROUSEL_ENTRY:
+        case DELETE_CAROUSEL_ENTRY_PATH:
             routeHandler = handleDeleteCarouselEntryRoute;
             break;
-        case UPDATE_CAROUSEL_ENTRY:
+        case UPDATE_CAROUSEL_ENTRY_PATH:
             routeHandler = handleUpdateCarouselEntryRoute;
             break;
-        case GET_OUR_TEACHERS:
+        case GET_OUR_TEACHERS_PATH:
             routeHandler = handleGetOurTeahcersRoute;
             break;
-        case GET_OUT_COURSES:
+        case GET_OUT_COURSES_PATH:
             routeHandler = handleGetLatestCoursesRoute;
             break;
-        case GET_LANDING_PAGE_VIDEO:
+        case GET_LANDING_PAGE_VIDEO_PATH:
             routeHandler = handleGetLandingPageVideo;
             break;
-        case CREATE_LANDING_PAGE_VIDEO:
+        case CREATE_LANDING_PAGE_VIDEO_PATH:
             routeHandler = handleCreateLandingPageVideo;
             break;
-        case UPDATE_LANDING_PAGE_VIDEO:
+        case UPDATE_LANDING_PAGE_VIDEO_PATH:
             routeHandler = handleUpdateLandingPageVideo;
             break;
-        case DELETE_LANDING_PAGE_VIDEO:
+        case DELETE_LANDING_PAGE_VIDEO_PATH:
             routeHandler = handleDeleteLandingPageVideo;
             break;
         default:
