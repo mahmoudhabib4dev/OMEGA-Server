@@ -2,7 +2,7 @@ require('dotenv').config();
 const { createServer } = require('node:http');
 const errorHandler = require('./controllers/errorController.js');
 const { handleSignUpTeacherRoutes, handleSignUpStudentRoutes } = require('./routes/signUpRoutes.js');
-const { handleUpdateStudent, handleDeleteStudent } = require('./routes/studentsRoutes.js');
+const { handleUpdateStudent, handleDeleteStudent , handleEnrollInCourse } = require('./routes/studentsRoutes.js');
 const { handleUpdateTeacher, handleDeleteTeacher } = require('./routes/teachersRoutes.js');
 const { handleUploadVideoRoute } = require('./routes/videoRoutes.js');
 const handleErrorsRoutes = require('./routes/errorsRoutes.js');
@@ -35,7 +35,8 @@ const {
     UPDATE_TEACHER_PATH,
     DELETE_STUDENT_PATH,
     DELETE_TEACHER_PATH,
-    GET_COURSES_ACCORDING_TO_YEAR_PATH
+    GET_COURSES_ACCORDING_TO_YEAR_PATH,
+    ENROLL_IN_COURSE
 
 } = require('./configs/paths.js');
 const handleUploadImageRoute = require('./routes/imageRoutes.js');
@@ -148,6 +149,9 @@ const server = createServer((req, res) => {
             break;
         case GET_COURSES_ACCORDING_TO_YEAR_PATH:
             routeHandler = handleSearchCoursesAccordingToYears;
+            break;
+        case ENROLL_IN_COURSE:
+            routeHandler = handleEnrollInCourse;
             break;
         default:
             routeHandler = handleErrorsRoutes;

@@ -24,5 +24,6 @@ module.exports = {
 	CREATE_LANDING_PAGE_VIDEO_PATH: '/api/v1/landing-page/create-video',
 	UPDATE_LANDING_PAGE_VIDEO_PATH: '/api/v1/landing-page/update-video',
 	DELETE_LANDING_PAGE_VIDEO_PATH: '/api/v1/landing-page/delete-video',
-	GET_COURSES_ACCORDING_TO_YEAR_PATH : '/api/v1/courses/search/years-filter'
+	GET_COURSES_ACCORDING_TO_YEAR_PATH : '/api/v1/courses/search/years-filter',
+	ENROLL_IN_COURSE: '/api/v1/courses/enroll'
 }
