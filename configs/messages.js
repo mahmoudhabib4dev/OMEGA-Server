@@ -71,6 +71,8 @@ module.exports = {
     UPDATE_TEACHER_SUCCESSFULLY: 'تم تحديث حساب الأستاذ بنجاح',
     UPDATE_STUDENT_SUCCESSFULLY: 'تم تحديث حساب الطالب بنجاح',
     UPDATE_STUDENT_FAILED: 'فشل تحديث حساب الطالب',
-    UPDATE_TEACHERS_FAILED:'فشل تحديث حساب الأستاذ'
+    UPDATE_TEACHERS_FAILED:'فشل تحديث حساب الأستاذ',
+    MISSING_YEAR: 'يرجى إرسال السنة' , 
+    WRONG_YEAR: 'قمت بإدخال سنة خاطئة'
 
 }

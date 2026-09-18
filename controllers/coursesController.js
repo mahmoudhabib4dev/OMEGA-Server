@@ -2,6 +2,7 @@ const pool = require('../configs/db.js');
 const requestBodyParser = require('../helpers/requestBodyParser.js');
 const errorHandler = require('./errorController.js');
 const successHandler = require('../controllers/successController.js');
+const { YEARS } = require('../configs/constants.js');
 
 const {
     MISSING_ID,
@@ -21,7 +22,9 @@ const {
     COURSES_FOUND_SUCCESSFULLY,
     MISSING_STATUS,
     MISSING_TEACHER_NAME,
-    TEACHER_COURSES_FOUND_SUCCESSFULLY
+    TEACHER_COURSES_FOUND_SUCCESSFULLY,
+    MISSING_YEAR,
+    WRONG_YEAR
 } = require('../configs/messages.js');
 
 
@@ -220,7 +223,7 @@ const updateCourse = async (req, res) => {
                 target_years=COALESCE($5, target_years)
             WHERE id=$6`,
             [title ?? null, description ?? null, cover_image_url ?? null,
-                price ?? null, target_years ?? null, id]);
+            price ?? null, target_years ?? null, id]);
 
 
         if (updateCourseResult.rowCount === 0) {
@@ -353,7 +356,6 @@ const searchCoursesByName = async (req, res) => {
     }
 };
 
-
 const searchCoursesStatus = async (req, res) => {
 
     const reqBody = await requestBodyParser(req);
@@ -423,7 +425,6 @@ const searchCoursesStatus = async (req, res) => {
 
 };
 
-
 const searchCoursesByTeacherName = async (req, res) => {
     const reqBody = await requestBodyParser(req);
     let client;
@@ -485,7 +486,58 @@ const searchCoursesByTeacherName = async (req, res) => {
     }
 };
 
+const searchCoursesAccordingToYears = async (req, res) => {
+    const reqBody = await requestBodyParser(req);
+    let client;
+    try {
 
+        const { year } = reqBody;
+        client = await pool.connect();
+        if (typeof year !== 'string' || year.trim() === '') {
+            return errorHandler(res, 400, MISSING_YEAR, {
+                success: false,
+                message: MISSING_YEAR
+            });
+        }
+
+        const normalizedYear = year.trim();
+        const isValidYears = Object.values(YEARS).includes(normalizedYear);
+
+        if (!isValidYears) {
+            return errorHandler(res, 400, WRONG_YEAR, {
+                success: false,
+                message: WRONG_YEAR
+            });
+        }
+
+        const searchResults = await client.query(
+            `SELECT *
+                         FROM courses
+                         WHERE $1 = ANY(target_years)
+                         ORDER BY title ASC`,
+            [normalizedYear]
+        );
+
+
+        if (searchResults.rowCount === 0) {
+            return errorHandler(res, 400, COURSES_NOT_FOUND, {
+                success: false,
+                message: COURSES_NOT_FOUND
+            });
+        }
+
+        return successHandler(res, 200, COURSES_FOUND_SUCCESSFULLY, {
+            success: true,
+            message: COURSES_FOUND_SUCCESSFULLY,
+            courses: searchResults.rows
+        });
+
+    } catch (error) {
+        return errorHandler(res, 500, error.message, { success: false, message: SERVER_ERROR });
+    } finally {
+        if (client) client.release();
+    }
+};
 
 
 module.exports = {
@@ -495,5 +547,6 @@ module.exports = {
     searchCoursesByNameForTeacher,
     searchCoursesByName,
     searchCoursesStatus,
-    searchCoursesByTeacherName
+    searchCoursesByTeacherName,
+    searchCoursesAccordingToYears
 };

@@ -34,7 +34,8 @@ const {
     UPDATE_STUDENT_PATH,
     UPDATE_TEACHER_PATH,
     DELETE_STUDENT_PATH,
-    DELETE_TEACHER_PATH
+    DELETE_TEACHER_PATH,
+    GET_COURSES_ACCORDING_TO_YEAR_PATH
 
 } = require('./configs/paths.js');
 const handleUploadImageRoute = require('./routes/imageRoutes.js');
@@ -45,7 +46,9 @@ const {
     handleSearchCoursesByNameForTeacher,
     handleSearchCoursesByName,
     handleSearchCoursesStatus,
-    handleSearchCoursesByTeacherName } = require('./routes/coursesRoutes.js');
+    handleSearchCoursesByTeacherName,
+    handleSearchCoursesAccordingToYears
+} = require('./routes/coursesRoutes.js');
 const {
     handleCreateCarouselEntryRoute,
     handleDeleteCarouselEntryRoute,
@@ -142,6 +145,9 @@ const server = createServer((req, res) => {
             break;
         case DELETE_LANDING_PAGE_VIDEO_PATH:
             routeHandler = handleDeleteLandingPageVideo;
+            break;
+        case GET_COURSES_ACCORDING_TO_YEAR_PATH:
+            routeHandler = handleSearchCoursesAccordingToYears;
             break;
         default:
             routeHandler = handleErrorsRoutes;

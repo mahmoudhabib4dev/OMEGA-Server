@@ -5,7 +5,8 @@ const {
     searchCoursesByNameForTeacher,
     searchCoursesByName,
     searchCoursesStatus,
-    searchCoursesByTeacherName
+    searchCoursesByTeacherName, 
+    searchCoursesAccordingToYears
 } = require('../controllers/coursesController.js');
 const errorHandler = require('../controllers/errorController.js');
 const { METHOD_NOT_ALLOWED } = require('../configs/messages.js');
@@ -112,6 +113,21 @@ const handleSearchCoursesByTeacherName = async (req, res) => {
     }
 };
 
+
+const handleSearchCoursesAccordingToYears = async (req, res) => {
+    if (req.method === 'GET') {
+        await searchCoursesAccordingToYears(req, res);
+    }
+    else {
+        errorHandler(
+            res,
+            405,
+            `\x1b[31m${METHOD_NOT_ALLOWED}\x1b[0m`,
+            { message: METHOD_NOT_ALLOWED }
+        );
+    }
+};
+
 module.exports = {
     handleCreateCourse,
     handleDeleteCourse,
@@ -119,5 +135,6 @@ module.exports = {
     handleSearchCoursesByNameForTeacher,
     handleSearchCoursesByName,
     handleSearchCoursesStatus,
-    handleSearchCoursesByTeacherName
+    handleSearchCoursesByTeacherName,
+    handleSearchCoursesAccordingToYears
 };
