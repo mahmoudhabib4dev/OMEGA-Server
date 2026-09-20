@@ -1,7 +1,16 @@
 const pool = require('../configs/db.js');
 const errorHandler = require('./errorController.js');
 const successHandler = require('./successController.js');
-const { RECORDS_NOT_FOUND, DATA_GOT_SUCCESSFULLY, SERVER_ERROR } = require('../configs/messages.js');
+const {
+    RECORDS_NOT_FOUND,
+    DATA_GOT_SUCCESSFULLY,
+    SERVER_ERROR,
+    MISSING_ID,
+    USER_NOT_FOUND,
+    YOU_ARE_NOT_AUTHORIZED,
+    RECORD_CREATED_SUCCESSFULLY , 
+    RECORD_WAS_NOT_CREATED
+} = require('../configs/messages.js');
 
 const getAboutUs = async (req, res) => {
 
@@ -29,13 +38,137 @@ const getAboutUs = async (req, res) => {
         if (client) client.release();
     }
 };
+const deleteAboutUs = async (req, res) => {
+    const reqBody = await requestBodyParser(req);
+    let client;
+    try {
+        client = await pool.connect();
+        const {
+            id,
+            about_us_post_id
+        } = reqBody;
+        const user = await client.query(`SELECT * FROM users WHERE id=$1`, [id]);
+        if (id === undefined) {
+            return errorHandler(res, 400, MISSING_ID, {
+                success: false,
+                message: MISSING_ID
+            });
+        }
+        if (user.rowCount === 0) {
+            return errorHandler(res, 400, USER_NOT_FOUND, {
+                success: false,
+                message: USER_NOT_FOUND
+            });
+        }
+        const userRole = await client.query(`SELECT name FROM roles where id=$1`, [user.rows[0].role_id]);
+        const role = userRole.rows[0].name;
+        if (role !== 'admin' && role !== 'super_admin') {
+            return errorHandler(res, 403, YOU_ARE_NOT_AUTHORIZED, {
+                success: false,
+                message: YOU_ARE_NOT_AUTHORIZED
+            });
+        }
 
+        
+    } catch (error) {
+        return errorHandler(res, 500, error.message, { success: false, message: SERVER_ERROR });
+    } finally {
+        if (client) client.release();
+    }
 
+};
+const updateAboutUs = async (req, res) => {
+    const reqBody = await requestBodyParser(req);
+    let client;
+    try {
+        client = await pool.connect();
+        const {
+            id,
+            about_us_post_id
+        } = reqBody;
+        const user = await client.query(`SELECT * FROM users WHERE id=$1`, [id]);
+        if (id === undefined) { 
+            return errorHandler(res, 400, MISSING_ID, {
+                success: false,
+                message: MISSING_ID
+            });
+        }
+        if (user.rowCount === 0) {
+            return errorHandler(res, 400, USER_NOT_FOUND, {
+                success: false,
+                message: USER_NOT_FOUND
+            });
+        }
+        const userRole = await client.query(`SELECT name FROM roles where id=$1`, [user.rows[0].role_id]);
+        const role = userRole.rows[0].name;
+        if (role !== 'admin' && role !== 'super_admin') {
+            return errorHandler(res, 403, YOU_ARE_NOT_AUTHORIZED, {
+                success: false,
+                message: YOU_ARE_NOT_AUTHORIZED
+            });
+        }
+    } catch (error) {
+        return errorHandler(res, 500, error.message, { success: false, message: SERVER_ERROR });
+    } finally {
+        if (client) client.release();
+    }
+};
+const createAboutUs = async (req, res) => {
+    const reqBody = await requestBodyParser(req);
+    let client;
+    try {
+        client = await pool.connect();
+        const {
+            id,
+            title,
+            content,
+            image_url
+        } = reqBody;
+        const user = await client.query(`SELECT * FROM users WHERE id=$1`, [id]);
+        if (id === undefined) {
+            return errorHandler(res, 400, MISSING_ID, {
+                success: false,
+                message: MISSING_ID
+            });
+        }
+        if (user.rowCount === 0) {
+            return errorHandler(res, 400, USER_NOT_FOUND, {
+                success: false,
+                message: USER_NOT_FOUND
+            });
+        }
+        const userRole = await client.query(`SELECT name FROM roles where id=$1`, [user.rows[0].role_id]);
+        const role = userRole.rows[0].name;
+        if (role !== 'admin' && role !== 'super_admin') {
+            return errorHandler(res, 403, YOU_ARE_NOT_AUTHORIZED, {
+                success: false,
+                message: YOU_ARE_NOT_AUTHORIZED
+            });
+        }
 
+        const createAboutUsRecordResult = await client.query(`INSERT INTO about_us (title,
+            content,
+            image_url) VALUES ($1, $2, $3) RETURNING *`, [
+            title,
+            content,
+            image_url
+        ]);
 
-const deleteAboutUs = async (req, res) => { };
-const updateAboutUs = async (req, res) => { };
-const createAboutUs = async (req, res) => { };
+        if (createAboutUsRecordResult.rowCount !== 1) {
+            return errorHandler(res, 500, RECORD_WAS_NOT_CREATED, { success: false, message: SERVER_ERROR });
+        }
+
+        return successHandler(res, 201, RECORD_CREATED_SUCCESSFULLY, {
+            success: true,
+            message: RECORD_CREATED_SUCCESSFULLY,
+            course: createAboutUsRecordResult.rows[0]
+        });
+    } catch (error) {
+        return errorHandler(res, 500, error.message, { success: false, message: SERVER_ERROR });
+    } finally {
+        if (client) client.release();
+    }
+};
 
 
 

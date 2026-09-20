@@ -78,6 +78,8 @@ module.exports = {
     MISSING_YEAR: 'يرجى إرسال السنة' , 
     WRONG_YEAR: 'قمت بإدخال سنة خاطئة',
     DATA_GOT_SUCCESSFULLY: 'تم الحصول على البيانات بنجاح',
-    RECORDS_NOT_FOUND: 'لا يوجد أي سجلات'
+    RECORDS_NOT_FOUND: 'لا يوجد أي سجلات',
+    RECORD_CREATED_SUCCESSFULLY: 'تم إنشاء السجل بنجاح' , 
+    RECORD_WAS_NOT_CREATED : 'لم يتم إنشاء السجل'
 
 }
