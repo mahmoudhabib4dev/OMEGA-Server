@@ -2,7 +2,7 @@ require('dotenv').config();
 const { createServer } = require('node:http');
 const errorHandler = require('./controllers/errorController.js');
 const { handleSignUpTeacherRoutes, handleSignUpStudentRoutes } = require('./routes/signUpRoutes.js');
-const { handleUpdateStudent, handleDeleteStudent , handleEnrollInCourse } = require('./routes/studentsRoutes.js');
+const { handleUpdateStudent, handleDeleteStudent, handleEnrollInCourse } = require('./routes/studentsRoutes.js');
 const { handleUpdateTeacher, handleDeleteTeacher } = require('./routes/teachersRoutes.js');
 const { handleUploadVideoRoute } = require('./routes/videoRoutes.js');
 const handleErrorsRoutes = require('./routes/errorsRoutes.js');
@@ -36,7 +36,10 @@ const {
     DELETE_STUDENT_PATH,
     DELETE_TEACHER_PATH,
     GET_COURSES_ACCORDING_TO_YEAR_PATH,
-    ENROLL_IN_COURSE
+    ENROLL_IN_COURSE,
+    CONTACT_US_PATH,
+    NEWS_PATH,
+    ABOUT_US_PATH
 
 } = require('./configs/paths.js');
 const handleUploadImageRoute = require('./routes/imageRoutes.js');
@@ -63,6 +66,9 @@ const {
 } = require('./routes/landingPageRoutes.js');
 
 const handleLoginRoutes = require('./routes/loginRoutes.js');
+const handleNewsRoutes = require('./routes/newsRoutes.js');
+const handleContactUsRoutes = require('./routes/contactUsRoutes.js');
+const handleAboutUsRoutes = require('./routes/aboutUsRoutes.js');
 
 
 const port = process.env.PORT;
@@ -152,6 +158,15 @@ const server = createServer((req, res) => {
             break;
         case ENROLL_IN_COURSE:
             routeHandler = handleEnrollInCourse;
+            break;
+        case CONTACT_US_PATH:
+            routeHandler = handleContactUsRoutes;
+            break;
+        case NEWS_PATH:
+            routeHandler = handleNewsRoutes;
+            break;
+        case ABOUT_US_PATH:
+            routeHandler = handleAboutUsRoutes
             break;
         default:
             routeHandler = handleErrorsRoutes;

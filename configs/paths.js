@@ -1,10 +1,10 @@
 module.exports = {
 	TEACHER_SIGNUP_PATH: '/api/v1/auth/teacher/signup',
-	STUDENT_SIGNUP_PATH:'/api/v1/auth/student/signup',
-	UPDATE_STUDENT_PATH:'/api/v1/auth/student/update',
-	UPDATE_TEACHER_PATH:'/api/v1/auth/teacher/update',
-	DELETE_STUDENT_PATH:'/api/v1/auth/student/delete',
-	DELETE_TEACHER_PATH:'/api/v1/auth/teacher/delete',
+	STUDENT_SIGNUP_PATH: '/api/v1/auth/student/signup',
+	UPDATE_STUDENT_PATH: '/api/v1/auth/student/update',
+	UPDATE_TEACHER_PATH: '/api/v1/auth/teacher/update',
+	DELETE_STUDENT_PATH: '/api/v1/auth/student/delete',
+	DELETE_TEACHER_PATH: '/api/v1/auth/teacher/delete',
 	LOGIN_PATH: '/api/v1/auth/login',
 	VIDEO_UPLOAD_PATH: '/api/v1/videos/upload',
 	IMAGE_UPLOAD_PATH: '/api/v1/images/upload',
@@ -24,6 +24,9 @@ module.exports = {
 	CREATE_LANDING_PAGE_VIDEO_PATH: '/api/v1/landing-page/create-video',
 	UPDATE_LANDING_PAGE_VIDEO_PATH: '/api/v1/landing-page/update-video',
 	DELETE_LANDING_PAGE_VIDEO_PATH: '/api/v1/landing-page/delete-video',
-	GET_COURSES_ACCORDING_TO_YEAR_PATH : '/api/v1/courses/search/years-filter',
-	ENROLL_IN_COURSE: '/api/v1/courses/enroll'
+	GET_COURSES_ACCORDING_TO_YEAR_PATH: '/api/v1/courses/search/years-filter',
+	ENROLL_IN_COURSE: '/api/v1/courses/enroll',
+	CONTACT_US_PATH: '/api/v1/contact-us',
+	NEWS_PATH: '/api/v1/news',
+	ABOUT_US_PATH: '/api/v1/about-us'
 }
