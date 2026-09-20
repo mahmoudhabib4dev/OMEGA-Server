@@ -4,7 +4,7 @@ const successHandler = require('./successController.js');
 const { RECORDS_NOT_FOUND, DATA_GOT_SUCCESSFULLY, SERVER_ERROR } = require('../configs/messages.js');
 
 const getAboutUs = async (req, res) => {
-   
+
     let client;
     try {
 
@@ -32,4 +32,11 @@ const getAboutUs = async (req, res) => {
 
 
 
-module.exports = {getAboutUs};
+
+const deleteAboutUs = async (req, res) => { };
+const updateAboutUs = async (req, res) => { };
+const createAboutUs = async (req, res) => { };
+
+
+
+module.exports = { getAboutUs, deleteAboutUs, updateAboutUs, createAboutUs };

@@ -30,5 +30,9 @@ const getNews = async (req, res) => {
 };
 
 
+const deleteNews = async (req, res) => { };
+const updateNews = async (req, res) => { };
+const createNews = async (req, res) => { };
 
-module.exports = {getNews};
+
+module.exports = { getNews, deleteNews, updateNews, createNews };
