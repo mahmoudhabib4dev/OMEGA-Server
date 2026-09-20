@@ -26,7 +26,7 @@ const {
     VIDEO_ENTRY_DELETED_SUCCESSFULLY,
     VIDEO_NOT_FOUND,
     VIDEO_FOUND_SUCCESSFULLY
-} = require('../configs/messages.js');
+} = require('../configs/messages.js'); 
 
 const createCarouselEntry = async (req, res) => {
     const reqBody = await requestBodyParser(req);

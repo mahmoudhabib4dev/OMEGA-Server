@@ -1,10 +1,10 @@
 const errorHandler = require('../controllers/errorController.js');
 const { METHOD_NOT_ALLOWED } = require('../configs/messages.js');
-const news = require ('../controllers/newsController.js');
+const { getNews } = require('../controllers/newsController.js');
 
 const handleNewsRoutes = async (req, res) => {
     if (req.method === 'GET') {
-        await news(req, res);
+        await getNews(req, res);
     }
     else {
         errorHandler(

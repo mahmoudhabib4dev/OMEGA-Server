@@ -1,10 +1,10 @@
 const errorHandler = require('../controllers/errorController.js');
 const { METHOD_NOT_ALLOWED } = require('../configs/messages.js');
-const aboutUs = require ('../controllers/aboutUsController.js');
+const {getAboutUs} = require ('../controllers/aboutUsController.js');
 
 const handleAboutUsRoutes = async (req, res) => {
     if (req.method === 'GET') {
-        await aboutUs(req, res);
+        await getAboutUs(req, res);
     }
     else {
         errorHandler(

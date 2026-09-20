@@ -76,6 +76,8 @@ module.exports = {
     UPDATE_STUDENT_FAILED: 'فشل تحديث حساب الطالب',
     UPDATE_TEACHERS_FAILED:'فشل تحديث حساب الأستاذ',
     MISSING_YEAR: 'يرجى إرسال السنة' , 
-    WRONG_YEAR: 'قمت بإدخال سنة خاطئة'
+    WRONG_YEAR: 'قمت بإدخال سنة خاطئة',
+    DATA_GOT_SUCCESSFULLY: 'تم الحصول على البيانات بنجاح',
+    RECORDS_NOT_FOUND: 'لا يوجد أي سجلات'
 
 }
