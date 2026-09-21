@@ -29,9 +29,140 @@ const getNews = async (req, res) => {
     }
 };
 
+const deleteNews = async (req, res) => {
+    const reqBody = await requestBodyParser(req);
+    let client;
+    try {
+        client = await pool.connect();
+        const {
+            id,
+            news_id
+        } = reqBody;
 
-const deleteNews = async (req, res) => { };
-const updateNews = async (req, res) => { };
+        if (id === undefined) {
+            return errorHandler(res, 400, MISSING_ID, {
+                success: false,
+                message: MISSING_ID
+            });
+        }
+
+        if (news_id === undefined) {
+            return errorHandler(res, 400, MISSING_RECOED_ID, {
+                success: false,
+                message: MISSING_RECOED_ID
+            });
+        }
+        const user = await client.query(`SELECT * FROM users WHERE id=$1`, [id]);
+        if (user.rowCount === 0) {
+            return errorHandler(res, 400, USER_NOT_FOUND, {
+                success: false,
+                message: USER_NOT_FOUND
+            });
+        }
+        const userRole = await client.query(`SELECT name FROM roles where id=$1`, [user.rows[0].role_id]);
+        const role = userRole.rows[0].name;
+        if (role !== 'admin' && role !== 'super_admin') {
+            return errorHandler(res, 403, YOU_ARE_NOT_AUTHORIZED, {
+                success: false,
+                message: YOU_ARE_NOT_AUTHORIZED
+            });
+        }
+
+        const recordExists = await client.query(`SELECT created_at FROM news WHERE id=$1`, [news_id]);
+        if (recordExists.rowCount === 0) {
+            return errorHandler(res, 404, RECORDS_NOT_FOUND, {
+                success: false,
+                message: RECORDS_NOT_FOUND
+            });
+        }
+
+        await client.query(`DELETE FROM news WHERE id=$1`, [news_id]);
+
+        return successHandler(res, 200, RECORD_DELETED_SUCCESSFULLY, {
+            success: true,
+            message: RECORD_DELETED_SUCCESSFULLY
+        });
+
+    } catch (error) {
+        return errorHandler(res, 500, error.message, { success: false, message: SERVER_ERROR });
+    } finally {
+        if (client) client.release();
+    }
+};
+
+const updateNews = async (req, res) => {
+    const reqBody = await requestBodyParser(req);
+    let client;
+    try {
+        client = await pool.connect();
+        const {
+            id,
+            news_id,
+            title,
+            content,
+            summary,
+            cover_image_url,
+            status
+        } = reqBody;
+        const user = await client.query(`SELECT * FROM users WHERE id=$1`, [id]);
+        if (id === undefined) {
+            return errorHandler(res, 400, MISSING_ID, {
+                success: false,
+                message: MISSING_ID
+            });
+        }
+        if (user.rowCount === 0) {
+            return errorHandler(res, 400, USER_NOT_FOUND, {
+                success: false,
+                message: USER_NOT_FOUND
+            });
+        }
+        const userRole = await client.query(`SELECT name FROM roles where id=$1`, [user.rows[0].role_id]);
+        const role = userRole.rows[0].name;
+        if (role !== 'admin' && role !== 'super_admin') {
+            return errorHandler(res, 403, YOU_ARE_NOT_AUTHORIZED, {
+                success: false,
+                message: YOU_ARE_NOT_AUTHORIZED
+            });
+        }
+        const recordExists = await client.query(`SELECT created_at FROM news WHERE id=$1`, [news_id]);
+
+        if (recordExists.rowCount === 0) {
+            return errorHandler(res, 404, RECORDS_NOT_FOUND, {
+                success: false,
+                message: RECORDS_NOT_FOUND
+            });
+        }
+
+        const updateRecordResult = await client.query(`
+            UPDATE news SET
+                title=COALESCE($1, title),
+                content=COALESCE($2, content),
+                cover_image_url=COALESCE($3, image_url),
+                summary=COALESCE($4,summary),
+                status=COALESCE($5,status)
+            WHERE id=$6`,
+            [title ?? null, content ?? null, cover_image_url ?? null, summary ?? null, status ?? null,
+            news_id ?? null]);
+
+
+        if (updateRecordResult.rowCount === 0) {
+            return errorHandler(res, 400, UPDATE_RECORD_FAILED, {
+                success: false,
+                message: UPDATE_RECORD_FAILED
+            });
+        }
+
+        return successHandler(res, 200, RECORD_UPDATED_SUCCESSFULLY, {
+            success: true,
+            message: RECORD_UPDATED_SUCCESSFULLY
+        });
+    } catch (error) {
+        return errorHandler(res, 500, error.message, { success: false, message: SERVER_ERROR });
+    } finally {
+        if (client) client.release();
+    }
+};
 const createNews = async (req, res) => { };
 
 
