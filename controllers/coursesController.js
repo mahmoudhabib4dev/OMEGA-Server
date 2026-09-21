@@ -539,12 +539,70 @@ const searchCoursesAccordingToYears = async (req, res) => {
     }
 };
 
-const searchCoursesFromNewToOld = async (req , res) => {
+const searchCoursesFromNewToOld = async (req, res) => {
+    let client;
+    try {
+        client = await pool.connect();
+        const searchResults = await client.query(
+            `SELECT *
+                         FROM courses
+                        
+                         ORDER BY created_at DESC`
 
+        );
+
+
+        if (searchResults.rowCount === 0) {
+            return errorHandler(res, 400, COURSES_NOT_FOUND, {
+                success: false,
+                message: COURSES_NOT_FOUND
+            });
+        }
+
+        return successHandler(res, 200, COURSES_FOUND_SUCCESSFULLY, {
+            success: true,
+            message: COURSES_FOUND_SUCCESSFULLY,
+            courses: searchResults.rows
+        });
+
+    } catch (error) {
+        return errorHandler(res, 500, error.message, { success: false, message: SERVER_ERROR });
+    } finally {
+        if (client) client.release();
+    }
 };
 
-const searchCoursesFromOldToNew = async (req , res) => {
-    
+const searchCoursesFromOldToNew = async (req, res) => {
+    let client;
+    try {
+        client = await pool.connect();
+        const searchResults = await client.query(
+            `SELECT *
+                         FROM courses
+                    
+                         ORDER BY created_at ASC`
+
+        );
+
+
+        if (searchResults.rowCount === 0) {
+            return errorHandler(res, 400, COURSES_NOT_FOUND, {
+                success: false,
+                message: COURSES_NOT_FOUND
+            });
+        }
+
+        return successHandler(res, 200, COURSES_FOUND_SUCCESSFULLY, {
+            success: true,
+            message: COURSES_FOUND_SUCCESSFULLY,
+            courses: searchResults.rows
+        });
+
+    } catch (error) {
+        return errorHandler(res, 500, error.message, { success: false, message: SERVER_ERROR });
+    } finally {
+        if (client) client.release();
+    }
 };
 
 module.exports = {
