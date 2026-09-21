@@ -539,6 +539,13 @@ const searchCoursesAccordingToYears = async (req, res) => {
     }
 };
 
+const searchCoursesFromNewToOld = async (req , res) => {
+
+};
+
+const searchCoursesFromOldToNew = async (req , res) => {
+    
+};
 
 module.exports = {
     createCourse,
@@ -548,5 +555,7 @@ module.exports = {
     searchCoursesByName,
     searchCoursesStatus,
     searchCoursesByTeacherName,
-    searchCoursesAccordingToYears
+    searchCoursesAccordingToYears,
+    searchCoursesFromNewToOld,
+    searchCoursesFromOldToNew
 };

@@ -5,8 +5,10 @@ const {
     searchCoursesByNameForTeacher,
     searchCoursesByName,
     searchCoursesStatus,
-    searchCoursesByTeacherName, 
-    searchCoursesAccordingToYears
+    searchCoursesByTeacherName,
+    searchCoursesAccordingToYears,
+    searchCoursesFromNewToOld,
+    searchCoursesFromOldToNew
 } = require('../controllers/coursesController.js');
 const errorHandler = require('../controllers/errorController.js');
 const { METHOD_NOT_ALLOWED } = require('../configs/messages.js');
@@ -26,7 +28,6 @@ const handleCreateCourse = async (req, res) => {
     }
 };
 
-
 const handleDeleteCourse = async (req, res) => {
     if (req.method === 'DELETE') {
         await deleteCourse(req, res);
@@ -40,7 +41,6 @@ const handleDeleteCourse = async (req, res) => {
         );
     }
 };
-
 
 const handleUpdateCourse = async (req, res) => {
     if (req.method === 'PATCH') {
@@ -84,7 +84,6 @@ const handleSearchCoursesByName = async (req, res) => {
     }
 };
 
-
 const handleSearchCoursesStatus = async (req, res) => {
     if (req.method === 'GET') {
         await searchCoursesStatus(req, res);
@@ -113,10 +112,37 @@ const handleSearchCoursesByTeacherName = async (req, res) => {
     }
 };
 
-
 const handleSearchCoursesAccordingToYears = async (req, res) => {
     if (req.method === 'GET') {
         await searchCoursesAccordingToYears(req, res);
+    }
+    else {
+        errorHandler(
+            res,
+            405,
+            `\x1b[31m${METHOD_NOT_ALLOWED}\x1b[0m`,
+            { message: METHOD_NOT_ALLOWED }
+        );
+    }
+};
+
+const handelSearchCoursesFromNewToOld = async (req, res) => {
+    if (req.method === 'GET') {
+        await searchCoursesFromNewToOld(req, res);
+    }
+    else {
+        errorHandler(
+            res,
+            405,
+            `\x1b[31m${METHOD_NOT_ALLOWED}\x1b[0m`,
+            { message: METHOD_NOT_ALLOWED }
+        );
+    }
+};
+
+const handelSearchCoursesFromOldToNew = async (req, res) => {
+    if (req.method === 'GET') {
+        await searchCoursesFromOldToNew(req, res);
     }
     else {
         errorHandler(
@@ -136,5 +162,7 @@ module.exports = {
     handleSearchCoursesByName,
     handleSearchCoursesStatus,
     handleSearchCoursesByTeacherName,
-    handleSearchCoursesAccordingToYears
+    handleSearchCoursesAccordingToYears,
+    handelSearchCoursesFromNewToOld,
+    handelSearchCoursesFromOldToNew
 };

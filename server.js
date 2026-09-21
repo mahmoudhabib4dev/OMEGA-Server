@@ -39,7 +39,9 @@ const {
     ENROLL_IN_COURSE,
     CONTACT_US_PATH,
     NEWS_PATH,
-    ABOUT_US_PATH
+    ABOUT_US_PATH,
+    SEARCH_COURSES_FROM_NEW_TO_OLD_PATH,
+    SEARCH_COURSES_FROM_OLD_TO_NEW_PATH
 
 } = require('./configs/paths.js');
 const handleUploadImageRoute = require('./routes/imageRoutes.js');
@@ -51,7 +53,9 @@ const {
     handleSearchCoursesByName,
     handleSearchCoursesStatus,
     handleSearchCoursesByTeacherName,
-    handleSearchCoursesAccordingToYears
+    handleSearchCoursesAccordingToYears,
+    handelSearchCoursesFromNewToOld,
+    handelSearchCoursesFromOldToNew
 } = require('./routes/coursesRoutes.js');
 const {
     handleCreateCarouselEntryRoute,
@@ -167,6 +171,12 @@ const server = createServer((req, res) => {
             break;
         case ABOUT_US_PATH:
             routeHandler = handleAboutUsRoutes
+            break;
+        case SEARCH_COURSES_FROM_NEW_TO_OLD_PATH:
+            routeHandler = handelSearchCoursesFromNewToOld;
+            break;
+        case SEARCH_COURSES_FROM_OLD_TO_NEW_PATH:
+            routeHandler = handelSearchCoursesFromOldToNew;
             break;
         default:
             routeHandler = handleErrorsRoutes;

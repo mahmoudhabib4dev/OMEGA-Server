@@ -13,6 +13,8 @@ module.exports = {
 	UPDATE_COURSE_PATH: '/api/v1/courses/update',
 	SEARCH_COURSES_BY_NAME_FOR_TEACHER_PATH: '/api/v1/courses/search/teacher',
 	SEARCH_COURSES_BY_NAME_PATH: '/api/v1/courses/search',
+	SEARCH_COURSES_FROM_NEW_TO_OLD_PATH:'/api/v1/courses/search/new2old',
+	SEARCH_COURSES_FROM_OLD_TO_NEW_PATH:'/api/v1/courses/search/old2new',
 	GET_COURSES_STATUS_PATH: '/api/v1/courses/search/status',
 	SEARCH_COURSES_BY_TEACHER_NAME_PATH: '/api/v1/courses/search/teacher-name',
 	CREATE_CAROUSEL_ENTRY_PATH: '/api/v1/landing-page/carousel-slider/create',
