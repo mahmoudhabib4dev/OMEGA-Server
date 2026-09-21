@@ -1,6 +1,7 @@
 const pool = require('../configs/db.js');
 const errorHandler = require('./errorController.js');
 const successHandler = require('./successController.js');
+const requestBodyParser = require('../helpers/requestBodyParser.js');
 const {
     RECORDS_NOT_FOUND,
     DATA_GOT_SUCCESSFULLY,
@@ -12,7 +13,8 @@ const {
     RECORD_WAS_NOT_CREATED,
     RECORD_DELETED_SUCCESSFULLY,
     RECORD_UPDATED_SUCCESSFULLY,
-    UPDATE_RECORD_FAILED
+    UPDATE_RECORD_FAILED,
+    MISSING_RECOED_ID
 } = require('../configs/messages.js');
 
 const getAboutUs = async (req, res) => {
@@ -50,13 +52,21 @@ const deleteAboutUs = async (req, res) => {
             id,
             about_us_post_id
         } = reqBody;
-        const user = await client.query(`SELECT * FROM users WHERE id=$1`, [id]);
+       
         if (id === undefined) {
             return errorHandler(res, 400, MISSING_ID, {
                 success: false,
                 message: MISSING_ID
             });
         }
+
+        if(about_us_post_id === undefined){
+              return errorHandler(res, 400, MISSING_RECOED_ID, {
+                success: false,
+                message: MISSING_RECOED_ID
+            });
+        }
+         const user = await client.query(`SELECT * FROM users WHERE id=$1`, [id]);
         if (user.rowCount === 0) {
             return errorHandler(res, 400, USER_NOT_FOUND, {
                 success: false,
@@ -174,13 +184,14 @@ const createAboutUs = async (req, res) => {
             content,
             image_url
         } = reqBody;
-        const user = await client.query(`SELECT * FROM users WHERE id=$1`, [id]);
+
         if (id === undefined) {
             return errorHandler(res, 400, MISSING_ID, {
                 success: false,
                 message: MISSING_ID
             });
         }
+        const user = await client.query(`SELECT * FROM users WHERE id=$1`, [id]);
         if (user.rowCount === 0) {
             return errorHandler(res, 400, USER_NOT_FOUND, {
                 success: false,

@@ -1,7 +1,7 @@
 
 
 module.exports = {
-    METHOD_NOT_ALLOWED: 'يُسمح باستخدام طريقة POST فقط.',
+    METHOD_NOT_ALLOWED: 'الطريقة خاطئة',
     SIGNUP_SUCCESSFULLY: 'تم إنشاء الحساب بنجاح.',
     PAGE_NOT_FOUND: 'الصفحة المطلوبة غير موجودة.',
     VIDEO_UPLOADED_SUCCESSFULLY: 'تم رفع الفيديو إلى Bunny بنجاح.',
@@ -83,6 +83,7 @@ module.exports = {
     RECORD_WAS_NOT_CREATED : 'لم يتم إنشاء السجل',
     RECORD_DELETED_SUCCESSFULLY: 'تم حذف السجل بنجاح',
     RECORD_UPDATED_SUCCESSFULLY : 'تم تحديث السجل بنجاح',
-    UPDATE_RECORD_FAILED: 'فشل تحديث السجل'
+    UPDATE_RECORD_FAILED: 'فشل تحديث السجل',
+    MISSING_RECOED_ID:' معرف السجل مفقود'
 
 }
