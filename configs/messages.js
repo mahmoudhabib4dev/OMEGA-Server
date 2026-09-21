@@ -80,6 +80,9 @@ module.exports = {
     DATA_GOT_SUCCESSFULLY: 'تم الحصول على البيانات بنجاح',
     RECORDS_NOT_FOUND: 'لا يوجد أي سجلات',
     RECORD_CREATED_SUCCESSFULLY: 'تم إنشاء السجل بنجاح' , 
-    RECORD_WAS_NOT_CREATED : 'لم يتم إنشاء السجل'
+    RECORD_WAS_NOT_CREATED : 'لم يتم إنشاء السجل',
+    RECORD_DELETED_SUCCESSFULLY: 'تم حذف السجل بنجاح',
+    RECORD_UPDATED_SUCCESSFULLY : 'تم تحديث السجل بنجاح',
+    UPDATE_RECORD_FAILED: 'فشل تحديث السجل'
 
 }
