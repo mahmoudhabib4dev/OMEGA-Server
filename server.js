@@ -9,6 +9,7 @@ const handleErrorsRoutes = require('./routes/errorsRoutes.js');
 const logger = require('./helpers/logger.js');
 const loggerStatus = require('./helpers/loggingStatus.js');
 const checkDBConnection = require('./helpers/dbConnectionChecker.js');
+const otpGenerator = require('./helpers/otpGenerator.js');
 const {
     TEACHER_SIGNUP_PATH,
     STUDENT_SIGNUP_PATH,

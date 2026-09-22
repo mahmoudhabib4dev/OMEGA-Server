@@ -11,6 +11,7 @@ const { REQUIRED_FIELDS_MESSING,
 } = require('../configs/messages.js');
 const errorHandler = require('./errorController.js');
 const successHandler = require('../controllers/successController.js');
+const otpGenerator = require('../helpers/otpGenerator.js');
 
 const signUpTeacher = async (req, res) => {
 
@@ -42,6 +43,7 @@ const signUpTeacher = async (req, res) => {
 
         const salt = await bcrypt.genSalt(10);
         const password_hash = await bcrypt.hash(password, salt);
+        const {otp_hash, otp}  = await otpGenerator();
 
         client = await pool.connect();
         await client.query('BEGIN');
@@ -75,6 +77,7 @@ const signUpTeacher = async (req, res) => {
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 'pending')
             RETURNING specialty, title, license_number, approval_status;
         `;
+
         const teacherRes = await client.query(insertTeacherQuery, [
             newUser.id,
             specialty,
@@ -85,6 +88,17 @@ const signUpTeacher = async (req, res) => {
             bio || null,
             current_city || null
         ]);
+
+
+         const insertOtpQuery = `INSERT INTO email_otps (user_id , otp_hash , expires_at )
+         VALUES ($1 , $2 , NOW() + INTERVAL '10 minutes')
+         RETURNING *;
+         `;
+
+         const otpResult = await client.query(insertOtpQuery , [
+            newUser.id , 
+            otp_hash
+         ]);
 
         await client.query('COMMIT');
 
@@ -99,7 +113,8 @@ const signUpTeacher = async (req, res) => {
                 phone: newUser.phone,
                 email: newUser.email,
                 avatar_url: newUser.avatar_url,
-                teacher_details: teacherRes.rows[0]
+                teacher_details: teacherRes.rows[0] , 
+                otp: otp
             }
         });
     } catch (error) {
